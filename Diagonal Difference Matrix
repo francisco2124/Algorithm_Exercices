@@ -1,0 +1,59 @@
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+#
+# Complete the 'diagonalDifference' function below.
+#
+# The function is expected to return an INTEGER.
+# The function accepts 2D_INTEGER_ARRAY arr as parameter.
+#
+
+
+
+#------------------Import----------------------------
+# Al ser una matrix cuadratica me simplifica la vida ya que siempre tendre endra el mismo numero de columnas que filas
+#Para la primera suma lo unico que se tine que hacer es sumar la posicion 0 de la primera fila + la posicion 2 de la segunda ....
+#Para la segunda suma el lo mismo que arriba pero recorrindo el ulimo valor de la primera fila y para la segunda ultima posicon -1
+#y = Ultima posicion de la fila
+#s1 = Suma 1
+#s3 = Suma 2
+def diagonalDifference(arr):
+    
+    
+    y = len(arr[0]) -1
+    s1=0
+    s2=0
+    #Con i se recorre los elemtos para la primera suma, la y para la segunda suma 
+    for i in range(len(arr)):
+        s1 = s1+arr[i][i]
+        s2 = s2+arr[i][y]
+        print(s1)
+        print(s2)
+        print("--------")
+        y -= 1
+        
+    dif = abs(s1-s2)
+    print("dif: "+str(dif))
+    return dif
+
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    n = int(input().strip())
+
+    arr = []
+
+    for _ in range(n):
+        arr.append(list(map(int, input().rstrip().split())))
+
+    result = diagonalDifference(arr)
+
+    fptr.write(str(result) + '\n')
+
+    fptr.close()
