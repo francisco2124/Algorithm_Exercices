@@ -1,0 +1,84 @@
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+#
+# Complete the 'caesarCipher' function below.
+#
+# The function is expected to return a STRING.
+# The function accepts following parameters:
+#  1. STRING s
+#  2. INTEGER k
+#
+
+def caesarCipher(s, k):
+    
+    alphabet = list("abcdefghijklmnopqrstuvwxyz")
+    upperAlphabet = list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+    
+    newAlphabet = list()
+    
+    while k>26:
+        k = k-26
+    
+    for i in range(len(alphabet)-k):
+        
+        newAlphabet.append(alphabet[i+k])
+    
+    for j in range(k):
+        newAlphabet.append(alphabet[j])
+    
+    listaIdex = list()
+    listaS = list(s)
+    
+    needUper = list()
+    for j in range(len(listaS)):
+        if listaS[j] in upperAlphabet:
+            needUper.append(j) 
+    
+    listaS = list(s.lower())
+    
+    for k in range(len(listaS)):
+        
+        try:
+            listaIdex.append(alphabet.index(listaS[k]))
+        except:
+             listaIdex.append(listaS[k])
+   
+    
+    newString = list()
+    for l in range(len(listaIdex)):
+        
+        try:
+            newString.append(newAlphabet[listaIdex[l]])
+        except:
+            newString.append(listaIdex[l])
+    
+    for k in range(len(needUper)):
+        
+        new = newString[needUper[k]].upper()
+        newString[needUper[k]] = new
+        
+    newString = ''.join(newString)
+    return newString
+    
+    
+    
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    n = int(input().strip())
+
+    s = input()
+
+    k = int(input().strip())
+
+    result = caesarCipher(s, k)
+
+    fptr.write(result + '\n')
+
+    fptr.close()
